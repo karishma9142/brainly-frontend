@@ -1,9 +1,11 @@
+import type { ReactElement } from "preact/compat";
+
 interface buttonProps {
     varient : "primary" | "secondary",
     size : "sm" | "md" | "lg" ,
     text : String ,
-    startIcon? : any, //optionl
-    endIcon? : any , // optional
+    startIcon? : ReactElement, //optionl
+    endIcon? : ReactElement , // optional
     onclick : () => void
 }
 
