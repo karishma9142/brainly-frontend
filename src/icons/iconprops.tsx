@@ -3,7 +3,7 @@ export interface iconProps {
 }
 
 export const sizeVrient = {
-    "sm" : "size-2" ,
-    "md" : "size-4" ,
-    "lg" : "size-6"
+    "sm" : "size-2 font-bold cursor-pointer",
+    "md" : "size-5 font-bold cursor-pointer" ,
+    "lg" : "size-5 font-bold cursor-pointer"
 }

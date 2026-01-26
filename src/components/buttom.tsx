@@ -6,7 +6,7 @@ interface buttonProps {
     text : String ,
     startIcon? : ReactElement, //optionl
     endIcon? : ReactElement , // optional
-    onclick : () => void
+    onclick? : () => void
 }
 
 const varientStyle = {
@@ -14,14 +14,14 @@ const varientStyle = {
     "secondary" : "bg-pu300 text-pu600"
 }
 
-const defaultStyle = "rounded-md p-2";
+const defaultStyle = "rounded-md p-2 cursor-pointer";
 
 const sizeStyle = {
-    "sm" : "px-2 py-1 text-sm" ,
-    "md" : "pl-4 pr-6 py-2 text-sm" ,
-    "lg" : "px-6 py-3 text-sm"
+    "sm" : "pl-3 pr-4 py-1 text-sm font-light" ,
+    "md" : "pl-4 pr-6 py-2 text-base font-light" ,
+    "lg" : "px-6 py-3 text-lg font-light"
 }
 export const Button =(prpos : buttonProps) => {
-    return <button className={ `${defaultStyle} ${sizeStyle[prpos.size]} ${varientStyle[prpos.varient]}`}>
+    return <button onClick={prpos.onclick} className={ `${defaultStyle} ${sizeStyle[prpos.size]} ${varientStyle[prpos.varient]}`}>
         <div className="flex gap-1.5 items-center">{prpos.startIcon} {prpos.text} {prpos.endIcon}</div></button>
 }   
