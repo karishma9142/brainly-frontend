@@ -1,5 +1,6 @@
 import { CrossIcon } from "../icons/crosIcon";
 import { Button } from "./buttom";
+import { Input } from "./input";
 
 export function Popup({ open , onclose } : {open : any , onclose : () => void}) {
     return <div>
@@ -24,8 +25,3 @@ export function Popup({ open , onclose } : {open : any , onclose : () => void}) 
     </div>
 }
 
-function Input({ onchange, placeholder }: { onchange: () => void , placeholder : string}) {
-    return <div className="border rounded-sm h-8">
-        <input type="text" placeholder={placeholder} onChange={onchange} className="w-full" class="h-full w-full pl-3 "/>
-    </div>
-}
