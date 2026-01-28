@@ -5,7 +5,7 @@ import { DeleteIcon } from "../icons/deleteIcon";
 interface Cardprops {
     title: string,
     link: string,
-    type: "Twitter" | "youtube"
+    type: "twitter" | "youtube" | "document"
 }
 
 export function Card({ title, link, type }: Cardprops) {
@@ -29,7 +29,7 @@ export function Card({ title, link, type }: Cardprops) {
             <div>
                 {type === "youtube" && <iframe className="w-full" src={link.replace("watch?v=" , "embed/")} title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowFullScreen></iframe>}
 
-                {type === "Twitter" && <blockquote class="twitter-tweet">
+                {type === "twitter" && <blockquote class="twitter-tweet">
                     <a href={link.replace("x.com" , "twitter.com")}></a>
                 </blockquote>}
 
