@@ -1,6 +1,8 @@
 import { DocumentIcon } from "../icons/documentIcon";
 import { ShareIcon } from "../icons/shareIcon";
 import { DeleteIcon } from "../icons/deleteIcon";
+import { YoutubeIcon } from "../icons/youtubeIcon";
+import { TwitterIcon } from "../icons/twitterIcon";
 
 interface Cardprops {
     title: string,
@@ -13,11 +15,13 @@ export function Card({ title, link, type }: Cardprops) {
         <div className="mt-5 ml-2 p-3 bg-white rounded-md shadow-md border border-gray-300 min-h-48 min-w-48 max-w-72 ">
             <div className="flex justify-between">
                 <div className="flex pr-4">
-                    <DocumentIcon size="md" />
+                    {type=== "youtube" && <YoutubeIcon size="md"/>}
+                    {type==="twitter" && <TwitterIcon size="md" />}
+                    {type === "document" && <DocumentIcon size="md"/>}
                     {title}
                 </div>
                 <div className="flex pr-3">
-                    <div>
+                    <div className="pr-2">
                         <a href={link} target="_blank"></a>
                         <ShareIcon size="md" />
                     </div>

@@ -17,8 +17,9 @@ export function Dashboard() {
     <Sidebar />
    
     <div className="p-4 pl-76 bg-background h-screen">
-    <div>{`${localStorage.getItem("link")}`}</div>
+    <div className="bg-[#E0E7FE] w-3/5 h-9 pt-1.5 pl-1.5 rounded-sm  text-pu600">Share Link : {localStorage.getItem("link")}</div>
       <div className="flex justify-end gap-2">
+            {/* <div className="bg-[#E0E7FE] w-3/5 h-9 pt-1.5 pl-1.5 rounded-sm  text-pu600">Share Link : {localStorage.getItem("link")}</div> */}
         <Button onclick={async () => {
           try {
             const response = await axios.post(
