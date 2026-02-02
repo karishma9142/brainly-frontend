@@ -8,53 +8,78 @@ import { Sidebar } from "../../components/sidebar";
 import { useContent } from "../hooks/useContent";
 import { BACKEND_URL } from "../../config";
 import axios from "axios";
-// import { BrainIcon } from "./icons/brainIcon";
+import { createContext } from "preact";
+
+
+export const AppContext = createContext<{
+  active: string;
+  setActive: (v: string) => void;
+}>({
+  active: "all",
+  setActive: () => {},
+});
+
 export function Dashboard() {
   const [open, setOpen] = useState(false);
+  const [active, setActive] = useState("all");
   const contents = useContent();
+  
 
   return <div >
-    <Sidebar />
-   
-    <div className="p-4 pl-76 bg-background h-screen">
-    <div className="bg-[#E0E7FE] w-3/5 h-9 pt-1.5 pl-1.5 rounded-sm  text-pu600">Share Link : {localStorage.getItem("link")}</div>
-      <div className="flex justify-end gap-2">
-            {/* <div className="bg-[#E0E7FE] w-3/5 h-9 pt-1.5 pl-1.5 rounded-sm  text-pu600">Share Link : {localStorage.getItem("link")}</div> */}
-        <Button onclick={async () => {
-          try {
-            const response = await axios.post(
-              `${BACKEND_URL}/api/v1/brain/share`,
-              {}, // body
-              {
-                headers: {
-                  token: localStorage.getItem("token")
-                }
-              }
-            );
-          
-            const shareLink = `http://localhost:3000/api/v1/brain/${response.data.link}`;
-            localStorage.setItem("link" , shareLink);
-            await navigator.clipboard.writeText(shareLink);
-            alert("Link copied to clipboard");
-          
-          } catch (error: any) {
-            console.log(error.response?.data || error.message);
-          }
-          
+    <AppContext.Provider value={{ active, setActive }}>
+      <Sidebar />
 
-        }} startIcon={<ShareIcon size="md" />} varient="secondary" size="md" text="Share Brain" ></Button>
-        <Button startIcon={<PlusIcon size="md" />} varient="primary" size="md" text="Add Content" onclick={() => { setOpen(true) }}></Button>
+      <div className="p-4 pl-76 bg-background h-screen">
+        <div className="bg-[#E0E7FE] w-3/5 h-9 pt-1.5 pl-1.5 rounded-sm  text-pu600">Share Link : {localStorage.getItem("link")}</div>
+        <div className="flex justify-end gap-2">
+          {/* <div className="bg-[#E0E7FE] w-3/5 h-9 pt-1.5 pl-1.5 rounded-sm  text-pu600">Share Link : {localStorage.getItem("link")}</div> */}
+          <Button onclick={async () => {
+            try {
+              const response = await axios.post(
+                `${BACKEND_URL}/api/v1/brain/share`,
+                {}, // body
+                {
+                  headers: {
+                    token: localStorage.getItem("token")
+                  }
+                }
+              );
+
+              const shareLink = `http://localhost:3000/api/v1/brain/${response.data.link}`;
+              localStorage.setItem("link", shareLink);
+              await navigator.clipboard.writeText(shareLink);
+              alert("Link copied to clipboard");
+
+            } catch (error: any) {
+              console.log(error.response?.data || error.message);
+            }
+
+
+          }} startIcon={<ShareIcon size="md" />} varient="secondary" size="md" text="Share Brain" ></Button>
+          <Button startIcon={<PlusIcon size="md" />} varient="primary" size="md" text="Add Content" onclick={() => { setOpen(true) }}></Button>
+        </div>
+        <div className="flex gap-3 flex-wrap">
+          <div className="flex gap-3 flex-wrap">
+            {(active!=="all"
+              ? contents.filter(item => item.type === active)
+              : contents
+            ).map(({ type, link, title, _id }) => (
+              <Card
+                key={_id}
+                type={type}
+                link={link}
+                title={title}
+                _id={_id}
+              />
+            ))}
+          </div>
+
+        </div>
+
+        <Popup open={open} onclose={() => {
+          setOpen(false)
+        }} />
       </div>
-      <div className="flex gap-3 flex-wrap">
-        {contents.map(({ type, link, title }) => <Card
-          type={type}
-          link={link}
-          title={title}
-        />)}
-      </div>
-      <Popup open={open} onclose={() => {
-        setOpen(false)
-      }} />
-    </div>
+    </AppContext.Provider>
   </div>
 }

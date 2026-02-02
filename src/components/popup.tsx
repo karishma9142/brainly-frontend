@@ -27,6 +27,11 @@ export function Popup({ open, onclose }: { open: any, onclose: () => void }) {
                 }
 
             });
+            localStorage.setItem("contentId" , String(response.data._id));
+            console.log(response);
+            console.log(response.data);
+            console.log(response.data._id);
+            console.log(String(response.data._id));
             alert(response.data.msg);
             onclose();
         } catch (error: any) {
